@@ -2,8 +2,8 @@
 AS
 BEGIN
 	SELECT
-		ei.[Name],
 		ei.[Title],
+		ei.[Name],
 		ei.[Link],
 		eid.[Text] AS [DescriptionRow]
 	FROM [Education].[Institute] ei
