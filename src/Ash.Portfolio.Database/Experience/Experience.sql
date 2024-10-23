@@ -1,0 +1,3 @@
+﻿CREATE SCHEMA [Experience]
+	AUTHORIZATION [dbo];
+GO;
