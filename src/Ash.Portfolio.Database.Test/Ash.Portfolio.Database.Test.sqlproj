@@ -67,6 +67,9 @@
     <Folder Include="tSQLt\Tables" />
     <Folder Include="tSQLt\User Defined Types" />
     <Folder Include="tSQLt\Views" />
+    <Folder Include="Security\Portfolio" />
+    <Folder Include="uspGetProjects" />
+    <Folder Include="uspGetProjects\Stored Procedures" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assemblies\tSQLtCLR.dll" />
@@ -267,6 +270,8 @@
     <Build Include="tSQLt\Stored Procedures\PrepareServer.sql" />
     <Build Include="tSQLt\Stored Procedures\InstallAssemblyKey.sql" />
     <Build Include="tSQLt\Functions\Private_HostPlatform.sql" />
+    <Build Include="Security\Portfolio\test_Portfolio_uspGetProjects.sql" />
+    <Build Include="uspGetProjects\Stored Procedures\test_projects_returned_successfully.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\150\SqlSchemas\master.dacpac">
