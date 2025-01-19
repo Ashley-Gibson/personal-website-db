@@ -3,8 +3,9 @@ AS
 BEGIN
 	SELECT
 		[Name],
-		[Technology],
+		[Technologies],
 		[RepositoryLink],
+		[ImageLink],
 		[Status]
 	FROM [Portfolio].[Project];
 END
