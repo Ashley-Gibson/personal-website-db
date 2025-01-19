@@ -7,37 +7,41 @@ BEGIN
 	CREATE TABLE #Expected_Portfolio_Projects
 	(
 		[Name]				VARCHAR(50)		NOT NULL,
-		[Technology]		VARCHAR(20)		NOT NULL,
+		[Technologies]		VARCHAR(20)		NOT NULL,
 		[RepositoryLink]	VARCHAR(100)	NOT NULL,
+		[ImageLink]			VARCHAR(100)	NOT NULL,
 		[Status]			VARCHAR(20)		NOT NULL
 	);
 
 	CREATE TABLE #Actual_Portfolio_Projects
 	(
 		[Name]				VARCHAR(50)		NOT NULL,
-		[Technology]		VARCHAR(20)		NOT NULL,
+		[Technologies]		VARCHAR(20)		NOT NULL,
 		[RepositoryLink]	VARCHAR(100)	NOT NULL,
+		[ImageLink]			VARCHAR(100)	NOT NULL,
 		[Status]			VARCHAR(20)		NOT NULL
 	);
 
 	DECLARE @name1				VARCHAR(50)		= 'Number Manipulator';
-	DECLARE @technology1		VARCHAR(20)		= 'C# .NET';
+	DECLARE @technologies1		VARCHAR(20)		= 'C# .NET';
 	DECLARE @repositoryLink1	VARCHAR(100)	= 'https://github.com/Ashley-Gibson/Number-Manipulator';
+	DECLARE @imageLink1			VARCHAR(100)	= 'img/portfolio/numberManipulator.png';
 	DECLARE @status1			VARCHAR(20)		= 'Complete';
 
 	DECLARE @name2				VARCHAR(50)		= 'Web Quiz';
-	DECLARE @technology2		VARCHAR(20)		= 'C# .NET Core';
+	DECLARE @technologies2		VARCHAR(20)		= 'C# .NET Core';
 	DECLARE @repositoryLink2	VARCHAR(100)	= 'https://github.com/Ashley-Gibson/Web-Quiz';
+	DECLARE @imageLink2			VARCHAR(100)	= 'img/portfolio/webQuiz.png';
 	DECLARE @status2			VARCHAR(20)		= 'In Progress';
 
 	EXEC [tSQLt].[FakeTable] '[Portfolio].[Project]';
-	INSERT INTO [Portfolio].[Project] ([Name], [Technology], [RepositoryLink], [Status])
-	VALUES	(@name1, @technology1, @repositoryLink1, @status1),
-			(@name2, @technology2, @repositoryLink2, @status2);
+	INSERT INTO [Portfolio].[Project] ([Name], [Technologies], [RepositoryLink], [ImageLink], [Status])
+	VALUES	(@name1, @technologies1, @repositoryLink1, @imageLink1, @status1),
+			(@name2, @technologies2, @repositoryLink2, @imageLink2, @status2);
 
-	INSERT INTO #Expected_Portfolio_Projects ([Name], [Technology], [RepositoryLink], [Status])
-	VALUES	(@name1, @technology1, @repositoryLink1, @status1),
-			(@name2, @technology2, @repositoryLink2, @status2);
+	INSERT INTO #Expected_Portfolio_Projects ([Name], [Technologies], [RepositoryLink], [ImageLink], [Status])
+	VALUES	(@name1, @technologies1, @repositoryLink1, @imageLink1, @status1),
+			(@name2, @technologies2, @repositoryLink2, @imageLink2, @status2);
 
 	INSERT INTO #Actual_Portfolio_Projects
 	EXEC [Portfolio].[uspGetProjects];
