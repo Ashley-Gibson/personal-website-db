@@ -66,6 +66,9 @@
     <Folder Include="Education" />
     <Folder Include="Education\Stored Procedures" />
     <Folder Include="Education\Tables" />
+    <Folder Include="Interests" />
+    <Folder Include="Interests\Tables" />
+    <Folder Include="Interests\Stored Procedures" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\160\SqlSchemas\master.dacpac">
@@ -88,5 +91,8 @@
     <Build Include="Education\Stored Procedures\uspGetInstitutes.sql" />
     <Build Include="Experience\Stored Procedures\uspGetRoleDescriptions.sql" />
     <Build Include="Education\Stored Procedures\uspGetInstituteDescriptions.sql" />
+    <Build Include="Interests\Interests.sql" />
+    <Build Include="Interests\Tables\PhotoGallery.sql" />
+    <Build Include="Interests\Stored Procedures\uspGetPhotoGalleryImageLinks.sql" />
   </ItemGroup>
 </Project>

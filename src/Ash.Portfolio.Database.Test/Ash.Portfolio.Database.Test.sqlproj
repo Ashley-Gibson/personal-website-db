@@ -83,6 +83,10 @@
     <Folder Include="Experience\uspGetRoleDescriptions\Stored Procedures" />
     <Folder Include="Education\uspGetInstituteDescriptions" />
     <Folder Include="Education\uspGetInstituteDescriptions\Stored Procedures" />
+    <Folder Include="Security\Interests" />
+    <Folder Include="Interests" />
+    <Folder Include="Interests\uspGetPhotoGalleryImageLinks" />
+    <Folder Include="Interests\uspGetPhotoGalleryImageLinks\Stored Procedures" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assemblies\tSQLtCLR.dll" />
@@ -293,6 +297,8 @@
     <Build Include="Security\Experience\test_Experience_uspGetRoleDescriptions.sql" />
     <Build Include="Education\uspGetInstituteDescriptions\Stored Procedures\test_institute_descriptions_returned_successfully.sql" />
     <Build Include="Security\Education\test_Education_uspGetInstituteDescriptions.sql" />
+    <Build Include="Security\Interests\test_Interests_uspGetPhotoGalleryImageLinks.sql" />
+    <Build Include="Interests\uspGetPhotoGalleryImageLinks\Stored Procedures\test_photo_gallery_image_links_returned_successfully.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\150\SqlSchemas\master.dacpac">
