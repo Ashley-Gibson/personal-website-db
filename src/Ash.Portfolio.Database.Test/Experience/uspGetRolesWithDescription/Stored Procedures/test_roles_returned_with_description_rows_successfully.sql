@@ -8,7 +8,8 @@ BEGIN
 	(
 		[Title]				VARCHAR(30)		NOT NULL,
 		[EmployerName]		VARCHAR(30)		NOT NULL,
-		[EmployerLink]		VARCHAR(50)		NOT NULL,
+		[EmployerLink]		VARCHAR(100)	NOT NULL,
+		[ImageLink]			VARCHAR(100)	NOT NULL,
 		[DescriptionRow]	NVARCHAR(1000)	NOT NULL
 	);
 
@@ -16,26 +17,29 @@ BEGIN
 	(
 		[Title]				VARCHAR(30)		NOT NULL,
 		[EmployerName]		VARCHAR(30)		NOT NULL,
-		[EmployerLink]		VARCHAR(50)		NOT NULL,
+		[EmployerLink]		VARCHAR(100)	NOT NULL,
+		[ImageLink]			VARCHAR(100)	NOT NULL,
 		[DescriptionRow]	NVARCHAR(1000)	NOT NULL
 	);
 
 	DECLARE @title1				VARCHAR(30)		= 'Senior Software Engineer';
 	DECLARE @employerName1		VARCHAR(30)		= 'ASOS';
-	DECLARE @employerLink1		VARCHAR(50)		= 'https://www.asos.com';
+	DECLARE @employerLink1		VARCHAR(100)	= 'https://www.asos.com';
+	DECLARE @imageLink1			VARCHAR(100)	= 'img/experience/asos.jpg';
 	DECLARE @text11				NVARCHAR(1000)	= 'Designed, developed, tested and maintained in-house C# .NET Core Web Applications using Azure Cloud Computing';
 	DECLARE @text12				NVARCHAR(1000)	= 'Used WebAPI for developing secure internal API endpoints';
 
 	DECLARE @title2				VARCHAR(30)		= 'Digital Developer';
 	DECLARE @employerName2		VARCHAR(30)		= 'Gallagher';
-	DECLARE @employerLink2		VARCHAR(50)		= 'https://www.ajg.com';
+	DECLARE @employerLink2		VARCHAR(100)	= 'https://www.ajg.com';
+	DECLARE @imageLink2			VARCHAR(100)	= 'img/experience/gallagher.jpg';
 	DECLARE @text21				NVARCHAR(1000)	= 'Designed, developed, tested and maintained C# .NET MVC CMS Websites and Web Applications (HTML/JavaScript/CSS) predominantly using Sitecore';
 	DECLARE @text22				NVARCHAR(1000)	= 'Source Control: Bitbucket, Azure DevOps and TFS';
 
 	EXEC [tSQLt].[FakeTable] '[Experience].[Role]';
-	INSERT INTO [Experience].[Role] ([Id], [Title], [EmployerName], [EmployerLink])
-	VALUES	(1, @title1, @employerName1, @employerLink1),
-			(2, @title2, @employerName2, @employerLink2);
+	INSERT INTO [Experience].[Role] ([Id], [Title], [EmployerName], [EmployerLink], [ImageLink])
+	VALUES	(1, @title1, @employerName1, @employerLink1, @imageLink1),
+			(2, @title2, @employerName2, @employerLink2, @imageLink2);
 
 	EXEC [tSQLt].[FakeTable] '[Experience].[RoleDescription]';
 	INSERT INTO [Experience].[RoleDescription] ([ParentId], [Text])
@@ -44,11 +48,11 @@ BEGIN
 			(2, @text21),
 			(2, @text22);
 
-	INSERT INTO #Expected_RolesWithDescription_Projects ([Title], [EmployerName], [EmployerLink], [DescriptionRow])
-	VALUES	(@title1, @employerName1, @employerLink1, @text11),
-			(@title1, @employerName1, @employerLink1, @text12),
-			(@title2, @employerName2, @employerLink2, @text21),
-			(@title2, @employerName2, @employerLink2, @text22);
+	INSERT INTO #Expected_RolesWithDescription_Projects ([Title], [EmployerName], [EmployerLink], [ImageLink], [DescriptionRow])
+	VALUES	(@title1, @employerName1, @employerLink1, @imageLink1, @text11),
+			(@title1, @employerName1, @employerLink1, @imageLink1, @text12),
+			(@title2, @employerName2, @employerLink2, @imageLink2, @text21),
+			(@title2, @employerName2, @employerLink2, @imageLink2, @text22);
 
 	INSERT INTO #Actual_RolesWithDescription_Projects
 	EXEC [Experience].[uspGetRolesWithDescription];
