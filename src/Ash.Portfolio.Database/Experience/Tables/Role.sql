@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [Experience].[Role]
 (
-	[Id]				INT				NOT NULL,
+	[Id]				INT				NOT NULL	IDENTITY(0, 1),
 	[Title]				VARCHAR(30)		NOT NULL,
 	[EmployerName]		VARCHAR(30)		NOT NULL,
 	[EmployerLink]		VARCHAR(100)	NOT NULL,
