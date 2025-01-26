@@ -85,7 +85,8 @@
     <Build Include="Education\Education.sql" />
     <Build Include="Portfolio\Stored Procedures\uspGetProjects.sql" />
     <Build Include="Experience\Stored Procedures\uspGetRoles.sql" />
-    <Build Include="Education\Stored Procedures\uspGetInstitutesWithDescription.sql" />
+    <Build Include="Education\Stored Procedures\uspGetInstitutes.sql" />
     <Build Include="Experience\Stored Procedures\uspGetRoleDescriptions.sql" />
+    <Build Include="Education\Stored Procedures\uspGetInstituteDescriptions.sql" />
   </ItemGroup>
 </Project>
