@@ -73,12 +73,14 @@
     <Folder Include="Portfolio\uspGetProjects" />
     <Folder Include="Portfolio\uspGetProjects\Stored Procedures" />
     <Folder Include="Experience" />
-    <Folder Include="Experience\uspGetRolesWithDescription" />
-    <Folder Include="Experience\uspGetRolesWithDescription\Stored Procedures" />
+    <Folder Include="Experience\uspGetRoles" />
+    <Folder Include="Experience\uspGetRoles\Stored Procedures" />
     <Folder Include="Education" />
     <Folder Include="Education\uspGetInstitutesWithDescription" />
     <Folder Include="Education\uspGetInstitutesWithDescription\Stored Procedures" />
     <Folder Include="Security\Education" />
+    <Folder Include="Experience\uspGetRoleDescriptions" />
+    <Folder Include="Experience\uspGetRoleDescriptions\Stored Procedures" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assemblies\tSQLtCLR.dll" />
@@ -280,11 +282,13 @@
     <Build Include="tSQLt\Stored Procedures\InstallAssemblyKey.sql" />
     <Build Include="tSQLt\Functions\Private_HostPlatform.sql" />
     <Build Include="Security\Portfolio\test_Portfolio_uspGetProjects.sql" />
-    <Build Include="Security\Experience\test_Experience_uspGetRolesWithDescription.sql" />
+    <Build Include="Security\Experience\test_Experience_uspGetRoles.sql" />
     <Build Include="Portfolio\uspGetProjects\Stored Procedures\test_projects_returned_successfully.sql" />
-    <Build Include="Experience\uspGetRolesWithDescription\Stored Procedures\test_roles_returned_with_description_rows_successfully.sql" />
+    <Build Include="Experience\uspGetRoles\Stored Procedures\test_roles_returned_successfully.sql" />
     <Build Include="Education\uspGetInstitutesWithDescription\Stored Procedures\test_institutes_returned_with_description_rows_successfully.sql" />
     <Build Include="Security\Education\test_Education_uspGetInstitutesWithDescription.sql" />
+    <Build Include="Experience\uspGetRoleDescriptions\Stored Procedures\test_role_descriptions_returned_successfully.sql" />
+    <Build Include="Security\Experience\test_Experience_uspGetRoleDescriptions.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\150\SqlSchemas\master.dacpac">

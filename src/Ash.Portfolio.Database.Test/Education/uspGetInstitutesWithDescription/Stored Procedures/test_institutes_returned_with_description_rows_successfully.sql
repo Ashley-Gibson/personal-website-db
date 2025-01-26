@@ -6,29 +6,29 @@ BEGIN
 
 	CREATE TABLE #Expected_Education_InstitutesWithDescription
 	(
-		[Title]				VARCHAR(30)		NOT NULL,
-		[Name]				VARCHAR(30)		NOT NULL,
+		[Title]				VARCHAR(50)		NOT NULL,
+		[Name]				VARCHAR(50)		NOT NULL,
 		[Link]				VARCHAR(50)		NOT NULL,
 		[DescriptionRow]	NVARCHAR(1000)	NOT NULL
 	);
 
 	CREATE TABLE #Actual_Education_InstitutesWithDescription
 	(
-		[Title]				VARCHAR(30)		NOT NULL,
-		[Name]				VARCHAR(30)		NOT NULL,
+		[Title]				VARCHAR(50)		NOT NULL,
+		[Name]				VARCHAR(50)		NOT NULL,
 		[Link]				VARCHAR(50)		NOT NULL,
 		[DescriptionRow]	NVARCHAR(1000)	NOT NULL
 	);
 
-	DECLARE @title1				VARCHAR(30)		= 'Coding Courses';
-	DECLARE @name1				VARCHAR(30)		= 'PluralSight';
+	DECLARE @title1				VARCHAR(50)		= 'Coding Courses';
+	DECLARE @name1				VARCHAR(50)		= 'PluralSight';
 	DECLARE @link1				VARCHAR(50)		= 'https://www.pluralsight.com/';
 	DECLARE @text11				NVARCHAR(1000)	= 'Topics studied: C#, .NET, Security, Docker, Kubernetes, Jenkins and Sitecore';
 	DECLARE @text12				NVARCHAR(1000)	= 'Courses completed: 15
 ';
 
-	DECLARE @title2				VARCHAR(30)		= 'BSc (Hons) Computer Science for Games';
-	DECLARE @name2				VARCHAR(30)		= 'Sheffield Hallam University';
+	DECLARE @title2				VARCHAR(50)		= 'BSc (Hons) Computer Science for Games';
+	DECLARE @name2				VARCHAR(50)		= 'Sheffield Hallam University';
 	DECLARE @link2				VARCHAR(50)		= 'https://www.shu.ac.uk/';
 	DECLARE @text21				NVARCHAR(1000)	= 'Programming languages: C++, C#, C for Robotics, VB, JavaScript, HTML, CSS, PHP, SQL, Python and Assembly';
 	DECLARE @text22				NVARCHAR(1000)	= 'Software used: Visual Studio, Unity';
