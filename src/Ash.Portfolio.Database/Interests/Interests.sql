@@ -1,0 +1,3 @@
+﻿CREATE SCHEMA [Interests]
+	AUTHORIZATION [dbo];
+GO;
