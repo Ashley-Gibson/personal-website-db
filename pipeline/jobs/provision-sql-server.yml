@@ -60,8 +60,8 @@ jobs:
                                  server_name=$(serverName) `
                                  sql_admin_login=$(Database.SqlAdminLogin) `
                                  sql_admin_password=$(Database.SqlAdminPassword) `
-                                 database_sku=${{ parameters.databaseSku.sku }} `
-                                 database_tier=${{ parameters.databaseSku.tier }} `
+                                 database_sku=${{ parameters.databaseSku }} `
+                                 database_tier=${{ parameters.databaseSku }} `
                                  database_dtu_capacity=$(dtuCapacity) `
                                  database_max_size_bytes=$(maxSizeByts) `
                                  system_tag=$(systemTag)
