@@ -25,9 +25,9 @@ jobs:
         value: 0
       - name: maxSizeByts
         value: 0
-      - databaseSku:
+      - name: databaseSku
         value: Basic
-      - databaseTier:
+      - name: databaseTier
         value: Basic
       - name: appSettings
         value: -Database__ConnectionString "$(Database.ConnectionString)"
