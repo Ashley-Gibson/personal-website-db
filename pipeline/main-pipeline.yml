@@ -39,10 +39,7 @@ stages:
       parameters:
         deploymentType: ${{ parameters.deploymentType }}
         environmentName: prod
-        stage: Prod
         subscriptionName: ${{ variables.subscriptionName }}
-        dockerImageRepository: $(dockerImageRepository)
-        dockerImageTag: $(dockerImageTag)
 
 #######################################################################
 # Tag the Build

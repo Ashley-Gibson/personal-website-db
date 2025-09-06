@@ -5,8 +5,6 @@ parameters:
     type: string
   - name: subscriptionName
     type: string
-  - name: subscriptionType
-    type: string
 
 stages:
   - stage: ${{ parameters.region.regionName }}_${{ parameters.environmentName }}
@@ -18,5 +16,4 @@ stages:
             deploymentType: ${{ parameters.deploymentType }}
             environmentName: ${{ parameters.environmentName }}
             subscriptionName: ${{ parameters.subscriptionName }}
-            subscriptionType: ${{ parameters.subscriptionType }}
             runAfter: []

@@ -5,8 +5,6 @@ parameters:
     type: string
   - name: subscriptionName
     type: string
-  - name: subscriptionType
-    type: string
   - name: runAfter
     type: object
 
