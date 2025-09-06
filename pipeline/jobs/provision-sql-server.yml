@@ -9,8 +9,6 @@ parameters:
     type: string
   - name: runAfter
     type: object
-  - name: databaseSku
-    type: object
 
 jobs:
   - deployment: Deploy_SqlServer_${{ parameters.environmentName }}
@@ -25,6 +23,14 @@ jobs:
         value: rg-${{ parameters.environmentName }}-ash-portfolio-web
       - name: webAppServiceName
         value: app-${{ parameters.environmentName }}-ash-portfolio-web
+      - name: dtuCapacity
+        value: 0
+      - name: maxSizeByts
+        value: 0
+      - databaseSku:
+        value: Basic
+      - databaseTier:
+        value: Basic
       - name: appSettings
         value: -Database__ConnectionString "$(Database.ConnectionString)"
                -WEBSITE_TIME_ZONE "GMT Standard Time"
@@ -54,8 +60,13 @@ jobs:
                     --template-file $(Agent.BuildDirectory)/drop/templates/main.bicep `
                     --parameters database_name=$(databaseName) `
                                  server_name=$(serverName) `
-                                 web_app_service_plan_sku=${{ parameters.databaseSku.sku }} `
-                                 web_app_service_plan_tier=${{ parameters.databaseSku.tier }}
+                                 sql_admin_login=$(Database.SqlAdminLogin) `
+                                 sql_admin_password=$(Database.SqlAdminPassword) `
+                                 database_sku=${{ parameters.databaseSku.sku }} `
+                                 database_tier=${{ parameters.databaseSku.tier }} `
+                                 database_dtu_capacity=$(dtuCapacity) `
+                                 database_max_size_bytes=$(maxSizeByts) `
+                                 system_tag=$(systemTag)
             
             - ${{ if in(parameters.deploymentType, 'All', 'Code') }}:
               - task: SqlAzureDacpacDeployment@1

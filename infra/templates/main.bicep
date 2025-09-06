@@ -1,75 +1,49 @@
-param location string = resourceGroup().location
-param resource_name_post_fix string
-param web_app_service_name string
-param web_app_service_plan_sku string
-param web_app_service_plan_tier string
+param server_name string
+param system_tag string
+@secure()
+param sql_admin_login string
+@secure()
+param sql_admin_password string
 
-param acr_resource_group_name string
-param acr_name string
-param deploymentGuidValue string = newGuid()
-
-param key_vault_name string
+param database_name string
+param database_sku string
+param database_tier string
+param database_dtu_capacity int
+param database_max_size_bytes int
 
 var tags = {
-  System: resourceGroup().tags.SystemTag
+  System: system_tag
 }
 
-module webAppServicePlan 'modules/appserviceplan.bicep' = {
-  name: 'plan_web_deployment_${deploymentGuidValue}'
-  params: {
-    name: 'plan-${resource_name_post_fix}-personal-website-web'
-    location: location
-    tags: tags
-    sku: {
-      name: web_app_service_plan_sku
-      tier: web_app_service_plan_tier
+resource sqlServer 'Microsoft.Sql/servers@2024-11-01-preview' = {
+  name: server_name
+  location: resourceGroup().location
+  tags: tags
+  properties: {
+    minimalTlsVersion: '1.2'
+    administratorLogin: sql_admin_login
+    administratorLoginPassword: sql_admin_password
+    administrators: {
+      azureADOnlyAuthentication: false
     }
   }
 }
 
-module webAppServiceUid 'modules/user-managed-identity.bicep' = {
-  name: 'web-user-identity'
-  scope: resourceGroup()
-  params: {
-    resourceName: web_app_service_name
-    location: location
+resource sqlDatabase 'Microsoft.Sql/servers/databases@2024-11-01-preview' = {
+  name: database_name
+  parent: sqlServer
+  location: resourceGroup().location
+  tags: tags
+  sku: {
+    capacity: database_dtu_capacity
+    name: database_sku
+    tier: database_tier
   }
-}
-
-module webAppService 'modules/appservice.bicep' = {
-  name: 'webAppDeployment'
-  params: {
-    name: web_app_service_name
-    location: location
-    tags: tags
-    web_app_service_plan_id: webAppServicePlan.outputs.appServicePlanId
-    user_managed_identity_name: webAppServiceUid.outputs.name  
-    managed_identity_type: 'SystemAssigned' 
+  properties: {
+    autoPauseDelay: -1
+    collation: 'SQL_Latin1_General_CP1_CI_AS'
+    createMode: 'Default'
+    maxSizeBytes: database_max_size_bytes
+    requestedBackupStorageRedundancy: 'Local'
   }
-  dependsOn: [
-    webAppServicePlan
-  ]
-}
-
-module webAppServiceContainerRegistryManagedIdentity 'modules/containerregistry-roleassignment.bicep' = {
-  name: 'app_web_cr_id_deployment_${deploymentGuidValue}'
-  params: {
-    acr_name: acr_name
-    principal_id: webAppService.outputs.appServiceIdentityId
-  }
-  dependsOn: [
-    webAppService
-  ]
-  scope: resourceGroup(acr_resource_group_name)
-}
-
-module webAppKeyVaultManagedIdentity 'modules/keyvault-roleassignment.bicep' = {
-  name: 'web_kv_id_deployment_${deploymentGuidValue}'
-  params: {
-    key_vault_name: key_vault_name
-    principal_id: webAppService.outputs.appServiceIdentityId
-  }
-  dependsOn: [
-    webAppService
-  ]
 }

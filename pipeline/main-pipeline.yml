@@ -23,23 +23,13 @@ parameters:
     - Code
     - Provisioning
     default: All
-  - name: connectionString
-    displayName: "Connection String"
-    type: string
   - name: subscriptionName
     type: string
     default: AshleyGibsonSubscription
 
-stages:
-  - template: stages/build-and-test.yml
-    parameters:
-      deploymentType: ${{ parameters.deploymentType }}
-  
+stages:  
   - ${{ if in(variables['Build.Reason'], 'IndividualCI', 'BatchedCI', 'Manual') }}:
-    - template: pipeline/stages/deployment-preparation.yml@AshTemplates
-      parameters:
-         runAfter: 
-          - Build_And_Test
+    - template: stages/deployment-preparation.yml
 
 #######################################################################
 # Provision to Production
@@ -53,9 +43,6 @@ stages:
         subscriptionName: ${{ variables.subscriptionName }}
         dockerImageRepository: $(dockerImageRepository)
         dockerImageTag: $(dockerImageTag)
-        databaseSku:
-          sku: Basic
-          tier: Basic
 
 #######################################################################
 # Tag the Build

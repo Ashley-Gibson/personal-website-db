@@ -7,8 +7,6 @@ parameters:
     type: string
   - name: subscriptionType
     type: string
-  - name: databaseSku
-    type: object
 
 stages:
   - stage: ${{ parameters.region.regionName }}_${{ parameters.environmentName }}
@@ -22,4 +20,3 @@ stages:
             subscriptionName: ${{ parameters.subscriptionName }}
             subscriptionType: ${{ parameters.subscriptionType }}
             runAfter: []
-            databaseSku: ${{ parameteres.databaseSku }}
