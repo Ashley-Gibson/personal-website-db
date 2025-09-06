@@ -3,34 +3,23 @@ parameters:
     type: string
   - name: environmentName
     type: string
-  - name: stage
-    type: string  
   - name: subscriptionName
     type: string
   - name: subscriptionType
     type: string
-  - name: regions
+  - name: databaseSku
     type: object
-  - name: dockerImageRepository
-    type: string
-  - name: dockerImageTag
-    type: string
-  - name: webAppServicePlan
-    type: object
-  - name: sqlConnectionType
-    type: string
 
 stages:
-    - ${{ each region in parameters.regions }}:      
-      - template: provision-region.yml
-        parameters:
-          deploymentType: ${{ parameters.deploymentType }}
-          environmentName: ${{ parameters.environmentName }}
-          stage: ${{ parameters.stage }}
-          subscriptionName: ${{ parameters.subscriptionName }}
-          subscriptionType: ${{ parameters.subscriptionType }}
-          region: ${{ region }}
-          dockerImageRepository: ${{ parameters.dockerImageRepository }}
-          dockerImageTag: ${{ parameters.dockerImageTag }}
-          webAppServicePlan: ${{ parameters.webAppServicePlan }}
-          sqlConnectionType: $${{ parameters.sqlConnectionType }}
+  - stage: ${{ parameters.region.regionName }}_${{ parameters.environmentName }}
+    dependsOn: ${{ parameters.region.runAfter }}
+    displayName: "Deploy to ${{ parameters.environmentName }} (${{ variables['Build.SourceBranch'] }}) Stage"
+    jobs:
+        - template: ../jobs/provision-sql-server.yml
+          parameters:
+            deploymentType: ${{ parameters.deploymentType }}
+            environmentName: ${{ parameters.environmentName }}
+            subscriptionName: ${{ parameters.subscriptionName }}
+            subscriptionType: ${{ parameters.subscriptionType }}
+            runAfter: []
+            databaseSku: ${{ parameteres.databaseSku }}

@@ -1,0 +1,71 @@
+parameters:
+  - name: deploymentType
+    type: string
+  - name: environmentName
+    type: string
+  - name: subscriptionName
+    type: string
+  - name: subscriptionType
+    type: string
+  - name: runAfter
+    type: object
+  - name: databaseSku
+    type: object
+
+jobs:
+  - deployment: Deploy_SqlServer_${{ parameters.environmentName }}
+    displayName: "Deploy to SQL Server ${{ parameters.environmentName }}"
+    dependsOn: ${{ parameters.runAfter }}
+    environment: Ash Personal Website ${{ parameters.environmentName }}
+    variables:
+      - group: Ash Personal Website ${{ parameters.environmentName }}
+      - name: systemTag
+        value: ash-portfolio
+      - name: resourceGroupName
+        value: rg-${{ parameters.environmentName }}-ash-portfolio-web
+      - name: webAppServiceName
+        value: app-${{ parameters.environmentName }}-ash-portfolio-web
+      - name: appSettings
+        value: -Database__ConnectionString "$(Database.ConnectionString)"
+               -WEBSITE_TIME_ZONE "GMT Standard Time"
+               -BUILD_VERSION "$(Build.BuildNumber)"
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - ${{ if in(parameters.deploymentType, 'All', 'Provisioning') }}:
+              - task: ConfigureResourceGroup@1
+                displayName: 'Create Resource Group'
+                inputs:
+                  spn: '${{ variables.azureSubscription }}'
+                  resourceGroup: '$(resourceGroupName)'
+                  location: 'eun'
+                  SystemTag: '$(systemTag)'
+
+              - task: AzureCLI@2
+                displayName: 'Deploy Resources'
+                inputs:
+                  azureSubscription: ${{ variables.azureSubscription }}
+                  scriptType: 'pscore'
+                  scriptLocation: 'inlineScript'
+                  inlineScript: |
+                    az deployment group create `
+                    --resource-group $(resourceGroupName) `
+                    --template-file $(Agent.BuildDirectory)/drop/templates/main.bicep `
+                    --parameters database_name=$(databaseName) `
+                                 server_name=$(serverName) `
+                                 web_app_service_plan_sku=${{ parameters.databaseSku.sku }} `
+                                 web_app_service_plan_tier=${{ parameters.databaseSku.tier }}
+            
+            - ${{ if in(parameters.deploymentType, 'All', 'Code') }}:
+              - task: SqlAzureDacpacDeployment@1
+                displayName: 'Deploy Azure SQL DB'
+                inputs:
+                  azureSubscription: '${{ parameters.subscriptionName }}'
+                  AuthenticationType: 'connectionString'
+                  ConnectionString: $(Database.ConnectionString)
+                  deployType: 'DacpacTask'
+                  DeploymentAction: 'Publish'
+                  DacpacFile: '**\*.dacpac'
+                  IpDetectionMethod: 'AutoDetect'
+                  DeleteFirewallRule: false
