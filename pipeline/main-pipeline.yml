@@ -12,8 +12,9 @@ trigger:
       - .gitignore
 
 pool:
-  vmImage: "ubuntu-latest"
-
+  #vmImage: 'windows-latest'
+  name: 'Ash Portfolio'
+  
 parameters:
   - name: deploymentType
     displayName: Deployment Type

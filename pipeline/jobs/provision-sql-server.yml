@@ -37,8 +37,6 @@ jobs:
       runOnce:
         deploy:
           steps:
-            - checkout: self
-              clean: false
             - ${{ if in(parameters.deploymentType, 'All', 'Provisioning') }}:
               - task: ConfigureResourceGroup@1
                 displayName: 'Create Resource Group'
